@@ -1,11 +1,12 @@
-/* MÓDULO RS485 CONECTADO A ARDUINO NANO EVERY:
+
+/* Pinout connection
  *            RO    -   D10
  *            RE    -   D3
  *            DE    -   D2
  *            DI    -   D9
  *            VCC   -   5V
- *            A     -   A+  (FLUJOMETRO)
- *            B     -   B-  (FLUJOMETRO)
+ *            A     -   A+  (Sensor)
+ *            B     -   B-  (Sensor)
  *            GND   -   GND
  */
 #include <SoftwareSerial.h>
@@ -36,7 +37,6 @@ void readTemp(){
   float Temp = word(Temp_buff[3], Temp_buff[4]);
   Temp = Temp/10;
   Serial.print(Temp);       
-  //delay(100);
 }
 
 void readHum(){
@@ -57,7 +57,6 @@ void readHum(){
   float Hum = word(Hum_buff[3], Hum_buff[4]);
   Hum = Hum/10;
   Serial.print(Hum);             
-  //delay(100);
 }
 
 void readCond(){
@@ -77,7 +76,6 @@ void readCond(){
   Serial.print(". Cond: ");
   int Cond = word(Cond_buff[3], Cond_buff[4]);
   Serial.println(Cond);
-  //delay(100);
 }
 
 void setup(){
@@ -85,9 +83,10 @@ void setup(){
   pinMode(MAX485_RE_NEG, OUTPUT);
   
   Serial.begin(9600);
-  // Serial.println("SENSOR MULTIPARAMETRO THC - RS485");
-
+  Serial.println("Starting...");
   RS485Serial.begin(9600);
+  Serial.println("Reading ComWinTop Soil Moisture Sensor (Model THC-S)");
+  // adquired from https://www.aliexpress.com/store/910369336
   delay(200);
 }
 
